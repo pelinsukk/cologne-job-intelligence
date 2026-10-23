@@ -1,0 +1,20 @@
+{
+  "id": "local-json",
+  "name": "User supplied employer JSON",
+  "official_url": "local-file",
+  "method": "local JSON file",
+  "state": "UNKNOWN",
+  "enabled": false,
+  "documentation": [],
+  "license": "unknown",
+  "robots_assessment": "Not applicable: local file only; no network access",
+  "fields": ["external_id", "name", "source_url", "website", "aliases", "industry", "location_evidence"],
+  "rate_limits": "Local read only; no network requests",
+  "restrictions": "Document dataset-specific rights and privacy restrictions here before enabling",
+  "assessed_on": null,
+  "confidence": "unknown",
+  "min_interval": 5,
+  "refresh_seconds": 86400,
+  "endpoint": null,
+  "robots_url": null
+}
