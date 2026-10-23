@@ -1,0 +1,31 @@
+[build-system]
+requires = ["hatchling==1.27.0"]
+build-backend = "hatchling.build"
+
+[project]
+name = "cologne-job-intelligence"
+version = "0.1.0"
+description = "Local-first, permission-gated employer discovery for Cologne"
+readme = "README.md"
+requires-python = ">=3.12"
+license = "MIT"
+dependencies = ["httpx==0.28.1"]
+
+[project.scripts]
+cologne-jobs = "cologne_jobs.cli:main"
+
+[dependency-groups]
+dev = ["pytest==8.3.5", "ruff==0.11.13"]
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/cologne_jobs"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+
+[tool.ruff]
+target-version = "py312"
+line-length = 100
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B"]
