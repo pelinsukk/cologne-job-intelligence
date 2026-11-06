@@ -1,18 +1,34 @@
 # Cologne Job Intelligence
 
-Local-first, zero-service-cost employer registry for a personal Cologne job search.
-**M0 and M1 only. No live employer collection is currently enabled.** Both researched
-public API paths disallow robots; this project's stricter policy blocks them. No
-employers, websites or permission evidence have been fabricated.
+A local employer registry and job application tracker for a Cologne job search.
+Keep a shortlist, rank it by your own terms and record application stages in SQLite.
+The CLI returns JSON, so it is easy to inspect results or use them in local scripts.
 
-Working now: SQLite employer persistence, source authorization/control, audit logs,
-URL/name normalization, conservative deduplication, provenance and claim history,
-authorized local JSON import, inspection and diagnostics. A permission-gated HTTPX
-transport is tested with synthetic responses for future authorized adapters.
+**No live collection is enabled.** The employer registry accepts only authorised
+local imports. The job tracker accepts manually entered links and never visits
+them, contacts employers or sends applications. Automatic discovery, monitoring,
+notifications and scheduling are outside this offline release.
 
-Not implemented: vacancy collection, careers monitoring, matching, notifications,
-dashboard, integrated update, scheduling or outreach. No GitHub Actions or cloud
-services. Nothing sends applications or contacts employers.
+## Try the offline workflow
+
+After installation, `cologne-jobs jobs demo` runs a labelled synthetic example
+in memory without opening your personal database. For a real workflow, enter
+only a listing you found and are authorised to use. The URL below is a placeholder.
+
+```bash
+cologne-jobs jobs demo
+cologne-jobs jobs add --employer "Example" --title "Climate data analyst" \
+  --url https://example.invalid/listing --location Cologne
+cologne-jobs jobs list --term Python --term climate
+cologne-jobs jobs stage 1 applied
+cologne-jobs jobs history 1
+```
+
+Use the ID returned by `add` in the stage and history commands. The same
+normalised URL returns the existing listing. Ranking counts distinct whole
+terms or phrases found in the title, location and notes; the matched terms
+are returned alongside the score. The stage is a personal record of what
+you did outside the tool.
 
 ## Install on macOS
 
@@ -21,7 +37,8 @@ Python 3.13.5 was available locally and used for verification; 3.12 is supported
 the package requirement but has not been tested in this environment.
 
 ```bash
-cd "/Users/pelinsukaplan/Documents/ChatGPT/Cologne Job Intelligence"
+git clone https://github.com/pelinsukk/cologne-job-intelligence.git
+cd cologne-job-intelligence
 uv sync --frozen --no-editable
 source .venv/bin/activate
 cologne-jobs doctor

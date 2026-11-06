@@ -19,10 +19,10 @@ discovery smoke test ran and no genuine sample discovery results are claimed.
 Synthetic offline fixtures verify functionality as authorized by the assignment's
 fallback. This is a functioning registry/foundation with limited data acquisition.
 
-## Stop point
+## Offline release
 
-M2–M8 have not been started. Next, after user authorization to continue: assess
-permitted official employer/ATS feeds for M2, implement careers identification,
-permission-scoped monitoring and vacancy lifecycle tests. Live adapters require
-fresh source-specific evidence before any collection. Do not activate blocked
-sources merely to increase coverage.
+Implemented manual vacancy entry, URL deduplication, explainable term ranking,
+application stages and history, plus an isolated in-memory synthetic demo.
+This local workflow does not enable remote discovery, ATS monitoring, scheduling,
+notifications or outreach. Live collection remains conditional on verified
+source-specific permission.

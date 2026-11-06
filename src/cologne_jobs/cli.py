@@ -1,4 +1,4 @@
-"""Operational M0/M1 commands only. JSON output is safe for local scripting."""
+"""Local employer registry and job tracking commands."""
 
 import argparse
 import json
@@ -10,6 +10,7 @@ import time
 from dataclasses import replace
 from pathlib import Path
 
+from cologne_jobs import manual_jobs
 from cologne_jobs.authorization import Source, authorize
 from cologne_jobs.discovery import discover
 from cologne_jobs.models import CollectionError
@@ -32,7 +33,7 @@ def emit(value: object) -> None:
 
 
 def parser() -> argparse.ArgumentParser:
-    app = argparse.ArgumentParser(description="Local employer registry (M0/M1 only)")
+    app = argparse.ArgumentParser(description="Local employer registry and job tracker")
     app.add_argument(
         "--db", type=Path, default=default_db(), help="SQLite file (or COLOGNE_JOBS_DB)"
     )
@@ -57,6 +58,7 @@ def parser() -> argparse.ArgumentParser:
     commands.add_parser("doctor", help="Local diagnostic checks; never sends network requests")
     audit = commands.add_parser("audit", help="Inspect recent collection/control audit records")
     audit.add_argument("--limit", type=int, default=20)
+    manual_jobs.configure(commands.add_parser("jobs", help="Track job listings offline"))
     return app
 
 
@@ -82,7 +84,9 @@ def source_report(store: Store) -> list[dict]:
 
 
 def run(args: argparse.Namespace, store: Store) -> None:
-    if args.command == "sources":
+    if args.command == "jobs":
+        emit(manual_jobs.run(store.db, args))
+    elif args.command == "sources":
         if args.action in {"enable", "disable"}:
             source = store.source(args.id)
             source = replace(source, enabled=args.action == "enable")
@@ -216,6 +220,9 @@ def main(argv: list[str] | None = None) -> int:
     args = parser().parse_args(argv)
     store = None
     try:
+        if args.command == "jobs" and args.jobs_action == "demo":
+            emit(manual_jobs.demo())
+            return 0
         store = Store(args.db)
         run(args, store)
         return 0
