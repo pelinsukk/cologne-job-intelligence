@@ -81,6 +81,22 @@ semantics are assessed. Local imports make no network requests.
 - Decision confidence: high for BLOCKED. **No interpreter/data query was sent.**
   No alternate Overpass instance was tried to evade the restriction.
 
+## Research Organization Registry (ROR) API — UNKNOWN, not enabled
+
+Reviewed **2026-11-06 (Europe/Berlin)** for research and education organizations
+in Cologne, not for vacancies or the general employer population.
+
+- The [official API documentation](https://ror.readme.io/docs/rest-api) describes
+  the organizations endpoint; the [terms](https://ror.org/about/terms/) dedicate
+  ROR IDs and metadata under CC0. Those facts alone do not pass this project's
+  robots gate.
+- A GET to `https://api.ror.org/robots.txt` returned HTTP 403 with a JSON
+  error, not a readable robots policy. This is not evidence that organization
+  requests are prohibited; it does mean automated access is unverified under
+  this project's policy.
+- No organization query was sent, no adapter was enabled and no discovery
+  results are claimed. Do not substitute an alternate host to evade the denial.
+
 ## Other sources
 
 IHK Köln, KölnBusiness, LinkedIn, Indeed, StepStone and XING are UNKNOWN/disabled:
