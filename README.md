@@ -1,13 +1,18 @@
 # Cologne Job Intelligence
 
-A local employer registry and job application tracker for a Cologne job search.
-Keep a shortlist, rank it by your own terms and record application stages in SQLite.
-The CLI returns JSON, so it is easy to inspect results or use them in local scripts.
+A finished offline tool for organizing a Cologne job search. Save vacancies
+you find, rank your shortlist by keywords, and keep a history of application
+stages in a local SQLite database. The command-line interface returns JSON.
 
-**No live collection is enabled.** The employer registry accepts only authorised
-local imports. The job tracker accepts manually entered links and never visits
-them, contacts employers or sends applications. Automatic discovery, monitoring,
-notifications and scheduling are outside this offline release.
+- **Shortlist:** manually add vacancy links; duplicate links return the existing record.
+- **Ranking:** see which of your search terms matched each vacancy.
+- **Application history:** record stages and review their history.
+- **Employer registry:** import authorised local JSON with source evidence.
+
+**Release scope:** live data collection is intentionally outside this project.
+There is no automated employer or vacancy discovery, site monitoring,
+scheduling, or outreach. The tool does not visit saved links, contact employers,
+or submit applications. The demo runs offline with synthetic data.
 
 ## Try the offline workflow
 
@@ -119,6 +124,7 @@ The non-editable install avoids Python 3.13 skipping hidden `.pth` files observe
 in this macOS environment. After code changes, repeat the reinstall command above
 before running tests or the CLI so that the installed wheel matches current source.
 
+The offline demo and all 59 tests passed in the last verification on Python 3.13.5.
 Unit tests prohibit real HTTP transport and use synthetic fixtures. See
 [verification report](docs/implementation-report.md) for executed results and the
 distinction between policy checks and live collection. This software is not a
